@@ -10,7 +10,7 @@
 // }
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     delay(2000);
     pinMode(PINOUT::DEBUG_PIN, OUTPUT);
     SimpleFOCInit();
