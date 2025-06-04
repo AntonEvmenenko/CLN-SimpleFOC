@@ -4,7 +4,6 @@
 #include <SimpleFOC.h>
 #include <SimpleFOCDrivers.h>
 #include "encoders/tle5012b/MagneticSensorTLE5012B.h"
-#include "SimpleFOCExtended/STM32HWEncoderExtended.h"
 #include "encoders/calibrated/CalibratedSensor.h"
 #include "SimpleFOCExtended/LowsideCurrentSenseExtended.h"
 #include "SimpleFOCExtended/StepperDriver4PWMExtended.h"
