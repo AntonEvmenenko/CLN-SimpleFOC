@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include "target/cln17_v2/target.h"
-#include "debug_variables.h"
 #include "SimpleFOCSetup.h"
 
 // HardwareTimer timer = HardwareTimer(TIM8);
@@ -20,11 +19,8 @@ void setup() {
     // timer.resume();
 }
 
-float motor_torque_setpoint = 0.0f;
-
 void loop() {
     loopFOC();
-    motor.target = motor_torque_setpoint;
-    update_debug_variables();
+    // current_sensor.getPhaseCurrents();
     // HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
 }

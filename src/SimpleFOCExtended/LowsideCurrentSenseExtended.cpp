@@ -14,5 +14,6 @@ PhaseCurrent_s LowsideCurrentSenseExtended::getPhaseCurrents(){
         current.b *= _sign(d->Ub);
     }
 
+    this->current = current;
     return current;
 }
