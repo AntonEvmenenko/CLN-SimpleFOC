@@ -5,9 +5,9 @@
 #include <SimpleFOCDrivers.h>
 #include "encoders/tle5012b/MagneticSensorTLE5012B.h"
 #include "encoders/calibrated/CalibratedSensor.h"
-#include "SimpleFOCExtended/LowsideCurrentSenseExtended.h"
-#include "SimpleFOCExtended/StepperDriver4PWMExtended.h"
-#include "SimpleFOCExtended/MagneticEncoderTLE5012B.h"
+#include "SimpleFOC_extended/LowsideCurrentSenseExtended.h"
+#include "SimpleFOC_extended/StepperDriver4PWMExtended.h"
+#include "SimpleFOC_extended/MagneticEncoderTLE5012B.h"
 
 extern MagneticEncoderTLE5012B encoder;
 extern CalibratedSensor encoder_calibrated;

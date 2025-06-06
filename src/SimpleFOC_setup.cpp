@@ -1,7 +1,7 @@
-#include "SimpleFOCSetup.h"
+#include "SimpleFOC_setup.h"
 
 #include "motor_config.h"
-#include "target/cln17_v2/target.h"
+#include "bsp/cln17_v2.h"
 
 #define POWER_SUPPLY_VOLTAGE 12.0f
 #define SENSOR_ALIGN_VOLTAGE 5.0f

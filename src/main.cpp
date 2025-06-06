@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "target/cln17_v2/target.h"
-#include "SimpleFOCSetup.h"
+#include "bsp/cln17_v2.h"
+#include "SimpleFOC_setup.h"
 
 // HardwareTimer timer = HardwareTimer(TIM8);
 
