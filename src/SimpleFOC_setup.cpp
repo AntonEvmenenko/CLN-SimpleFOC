@@ -46,12 +46,10 @@ float supply_voltage = POWER_SUPPLY_VOLTAGE;
 
 void initMotorParameters()
 {
+    // control mode
     motor.torque_controller = TorqueControlType::foc_current;
     motor.controller = MotionControlType::angle;
     // motor.controller = MotionControlType::velocity_openloop;
-
-    // voltage
-    motor.voltage_limit = supply_voltage;
 
     // current
     motor.PID_current_q.P = 3;
@@ -60,8 +58,6 @@ void initMotorParameters()
     motor.PID_current_d.I = 100;
     motor.LPF_current_q.Tf = 0.01;
     motor.LPF_current_d.Tf = 0.01;
-    motor.PID_current_q.limit = supply_voltage;
-    motor.PID_current_d.limit = supply_voltage;
     motor.current_limit = 1.5f;
 
     // velocity
@@ -94,6 +90,9 @@ void initSimpleFOC()
 
     SimpleFOC_CORDIC_Config();
     initMotorParameters();
+    motor.voltage_limit = supply_voltage;
+    motor.PID_current_q.limit = supply_voltage;
+    motor.PID_current_d.limit = supply_voltage;
 
     extern uint8_t tim_downsample[5];
     for (int i = 0; i < 5; ++i) {
