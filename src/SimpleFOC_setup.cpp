@@ -11,13 +11,38 @@
 #include "bsp/cln17_v2.h"
 #include "motor_calibration.h"
 
-MagneticEncoderTLE5012B encoder = MagneticEncoderTLE5012B(/*PINOUT::ENC_MOSI, PINOUT::ENC_MISO, PINOUT::ENC_SCLK, PINOUT::ENC_CSEL*/);
-CalibratedSensorExtended encoder_calibrated = CalibratedSensorExtended(encoder, ENCODER_CALIBRATION_LUT_SIZE);
-LowsideCurrentSenseExtended current_sensor = LowsideCurrentSenseExtended(CURRENT_SENSING::SHUNT_RESISTANCE, CURRENT_SENSING::GAIN, PINOUT::ISEN_A, PINOUT::ISEN_B, _NC);
-StepperMotor motor = StepperMotor(MOTOR_POLE_PAIR_NUMBER, MOTOR_PHASE_RESISTANCE, MOTOR_KV_RATING, MOTOR_PHASE_INDUCTANCE);
-StepperDriver4PWMExtended driver = StepperDriver4PWMExtended(PINOUT::DRV_A1, PINOUT::DRV_A2, PINOUT::DRV_B1, PINOUT::DRV_B2, PINOUT::DRV_EN);
-
+MagneticEncoderTLE5012B encoder = MagneticEncoderTLE5012B(
+    // PINOUT::ENC_MOSI, 
+    // PINOUT::ENC_MISO, 
+    // PINOUT::ENC_SCLK, 
+    // PINOUT::ENC_CSEL
+);
+CalibratedSensorExtended encoder_calibrated = CalibratedSensorExtended(
+    encoder, 
+    ENCODER_CALIBRATION_LUT_SIZE
+);
+LowsideCurrentSenseExtended current_sensor = LowsideCurrentSenseExtended(
+    CURRENT_SENSING::SHUNT_RESISTANCE, 
+    CURRENT_SENSING::GAIN, 
+    PINOUT::ISEN_A, 
+    PINOUT::ISEN_B, 
+    PINOUT::SYS_VSUP // This is a hack. We use third current sensing channel to measure the supply voltage
+);
+StepperMotor motor = StepperMotor(
+    MOTOR_POLE_PAIR_NUMBER, 
+    MOTOR_PHASE_RESISTANCE, 
+    MOTOR_KV_RATING, 
+    MOTOR_PHASE_INDUCTANCE
+);
+StepperDriver4PWMExtended driver = StepperDriver4PWMExtended(
+    PINOUT::DRV_A1, 
+    PINOUT::DRV_A2, 
+    PINOUT::DRV_B1, 
+    PINOUT::DRV_B2, 
+    PINOUT::DRV_EN
+);
 MotorCalibration motor_calibration;
+float supply_voltage = POWER_SUPPLY_VOLTAGE;
 
 void initMotorParameters()
 {
@@ -26,7 +51,7 @@ void initMotorParameters()
     // motor.controller = MotionControlType::velocity_openloop;
 
     // voltage
-    motor.voltage_limit = POWER_SUPPLY_VOLTAGE;
+    motor.voltage_limit = supply_voltage;
 
     // current
     motor.PID_current_q.P = 3;
@@ -35,8 +60,8 @@ void initMotorParameters()
     motor.PID_current_d.I = 100;
     motor.LPF_current_q.Tf = 0.01;
     motor.LPF_current_d.Tf = 0.01;
-    motor.PID_current_q.limit = POWER_SUPPLY_VOLTAGE;
-    motor.PID_current_d.limit = POWER_SUPPLY_VOLTAGE;
+    motor.PID_current_q.limit = supply_voltage;
+    motor.PID_current_d.limit = supply_voltage;
     motor.current_limit = 1.5f;
 
     // velocity
@@ -89,8 +114,8 @@ void initSimpleFOC()
     motor.linkSensor(&encoder);
     
     driver.pwm_frequency = 20000;
-    driver.voltage_power_supply = POWER_SUPPLY_VOLTAGE;
-    driver.voltage_limit = POWER_SUPPLY_VOLTAGE;
+    driver.voltage_power_supply = supply_voltage;
+    driver.voltage_limit = supply_voltage;
     driver.init();
     
     motor.linkDriver(&driver);
@@ -132,6 +157,13 @@ void initSimpleFOC()
 
 void loopFOC()
 {
+    supply_voltage = (current_sensor.getPhaseCurrents().c / current_sensor.gain_c + current_sensor.offset_ic) * VOLTAGE_SENSING::VM_SENSE_SCALE;
+    driver.voltage_power_supply = supply_voltage;
+    driver.voltage_limit = supply_voltage;
+    motor.PID_current_q.limit = supply_voltage;
+    motor.PID_current_d.limit = supply_voltage;
+    motor.voltage_limit = supply_voltage;
+
     motor.loopFOC();
     motor.move();
 }

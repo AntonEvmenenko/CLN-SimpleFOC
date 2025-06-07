@@ -28,13 +28,13 @@ namespace PINOUT {
     constexpr int DRV_B2 = PB11;
 
     // Buttons
-    constexpr int SYS_SW1 = PA_15;  // INPUT_PULLUP; LOW = PRESSED
+    constexpr int SYS_SW1 = PA15;  // INPUT_PULLUP; LOW = PRESSED
     // constexpr int SYS_SW2 = PB_7;   // INPUT_PULLUP; LOW = PRESSED
 
     constexpr int DEBUG_PIN = PC10;
 
-    // // Ststem telemetry
-    // constexpr PinName SYS_VSUP = PA_2;       // INPUT_ANALOG
+    // System telemetry
+    constexpr int SYS_VSUP = PA2;
     // constexpr PinName SYS_VREF = PADC_VREF;  // Core VREF voltage ADC
     // constexpr PinName SYS_TEMP = PADC_TEMP;  // Core VTEMP temperature ADC
 
@@ -63,6 +63,10 @@ namespace PINOUT {
 namespace CURRENT_SENSING {
     constexpr float SHUNT_RESISTANCE  = 0.025f; // [Ohm]
     constexpr float GAIN = 20.0f; // [V/V]
+}
+
+namespace VOLTAGE_SENSING {
+    constexpr float VM_SENSE_SCALE = 21.0f;
 }
 
 void init_pins();
