@@ -2,6 +2,7 @@
 
 #include <SimpleFOC.h>
 #include <SimpleFOCDrivers.h>
+#include "utilities/stm32math/STM32G4CORDICTrigFunctions.h"
 #include "encoders/tle5012b/MagneticSensorTLE5012B.h"
 #include "SimpleFOC_extended/LowsideCurrentSenseExtended.h"
 #include "SimpleFOC_extended/StepperDriver4PWMExtended.h"
@@ -67,6 +68,7 @@ void initSimpleFOC()
         }
     }
 
+    SimpleFOC_CORDIC_Config();
     initMotorParameters();
 
     extern uint8_t tim_downsample[5];
