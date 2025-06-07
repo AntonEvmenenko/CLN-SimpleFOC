@@ -1,6 +1,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+// FOC
+
+#define FOC_LOOP_FREQUENCY 8000 // [Hz]
+
 // Power supply
 
 #define POWER_SUPPLY_VOLTAGE 12.0f // [V]

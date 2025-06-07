@@ -3,7 +3,6 @@
 #include <SimpleFOC.h>
 #include <SimpleFOCDrivers.h>
 #include "utilities/stm32math/STM32G4CORDICTrigFunctions.h"
-#include "encoders/tle5012b/MagneticSensorTLE5012B.h"
 #include "SimpleFOC_extended/LowsideCurrentSenseExtended.h"
 #include "SimpleFOC_extended/StepperDriver4PWMExtended.h"
 #include "SimpleFOC_extended/MagneticEncoderTLE5012B.h"
@@ -12,7 +11,7 @@
 #include "bsp/cln17_v2.h"
 #include "motor_calibration.h"
 
-MagneticEncoderTLE5012B encoder(PINOUT::ENC_MOSI, PINOUT::ENC_MISO, PINOUT::ENC_SCLK, PINOUT::ENC_CSEL);
+MagneticEncoderTLE5012B encoder = MagneticEncoderTLE5012B(/*PINOUT::ENC_MOSI, PINOUT::ENC_MISO, PINOUT::ENC_SCLK, PINOUT::ENC_CSEL*/);
 CalibratedSensorExtended encoder_calibrated = CalibratedSensorExtended(encoder, ENCODER_CALIBRATION_LUT_SIZE);
 LowsideCurrentSenseExtended current_sensor = LowsideCurrentSenseExtended(CURRENT_SENSING::SHUNT_RESISTANCE, CURRENT_SENSING::GAIN, PINOUT::ISEN_A, PINOUT::ISEN_B, _NC);
 StepperMotor motor = StepperMotor(MOTOR_POLE_PAIR_NUMBER, MOTOR_PHASE_RESISTANCE, MOTOR_KV_RATING, MOTOR_PHASE_INDUCTANCE);

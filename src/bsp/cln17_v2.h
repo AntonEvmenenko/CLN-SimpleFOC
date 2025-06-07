@@ -5,6 +5,7 @@
 
 namespace PINOUT {
     // Encoder
+    // TODO these pins are not actually used, all the pins are hardcoded inside the MagneticEncoderTLE5012B class
     constexpr int ENC_MOSI = PA7;
     constexpr int ENC_MISO = PA6;
     constexpr int ENC_SCLK = PA5;

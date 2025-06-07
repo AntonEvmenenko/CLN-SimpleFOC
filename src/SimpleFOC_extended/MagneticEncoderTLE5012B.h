@@ -6,14 +6,11 @@
 #include <SPI.h>
 
 class MagneticEncoderTLE5012B : public Sensor {
-    public:
-        MagneticEncoderTLE5012B(int mosi, int miso, int sclk, int cs);
-        virtual void init() override;
-        virtual float getSensorAngle() override;
-
-    private:
-        SPIClass spi;
-        int cs;
+public:
+    MagneticEncoderTLE5012B(/*int mosi, int miso, int sclk, int cs*/);
+    virtual void init() override;
+    virtual float getSensorAngle() override;
+    void requestAngle();
 };
 
 #endif // MAGNETIC_ENCODER_TLE5012B_H

@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "bsp/cln17_v2.h"
 #include "SimpleFOC_setup.h"
+#include "config.h"
 
 HardwareTimer foc_timer = HardwareTimer(TIM8);
 
@@ -16,7 +17,7 @@ void setup() {
     // delay(5000);
     initSimpleFOC();
 
-    foc_timer.setOverflow(8000, HERTZ_FORMAT);
+    foc_timer.setOverflow(FOC_LOOP_FREQUENCY, HERTZ_FORMAT);
     foc_timer.attachInterrupt(foc_timer_interrupt);
     foc_timer.resume();
 }
