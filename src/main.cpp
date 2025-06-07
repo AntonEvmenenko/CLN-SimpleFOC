@@ -9,12 +9,10 @@
 // }
 
 void setup() {
+    init_pins();
     Serial.begin(115200);
     // delay(5000);
-    pinMode(PINOUT::DEBUG_PIN, OUTPUT);
-    pinMode(PINOUT::SYS_SW1, INPUT_PULLUP);
-    bool calibration_needed = (digitalRead(PINOUT::SYS_SW1) == LOW);
-    SimpleFOCInit(calibration_needed);
+    initSimpleFOC();
 
     // timer.setOverflow(5000, HERTZ_FORMAT);
     // timer.attachInterrupt(timerInterrupt);

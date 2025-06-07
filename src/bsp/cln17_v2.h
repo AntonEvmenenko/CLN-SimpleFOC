@@ -1,5 +1,8 @@
 #define TARGET_CLN17_V2
 
+#include <Arduino.h>
+#include "led_color.h"
+
 namespace PINOUT {
     // Encoder
     constexpr int ENC_MOSI = PA7;
@@ -60,3 +63,7 @@ namespace CURRENT_SENSING {
     constexpr float SHUNT_RESISTANCE  = 0.025f; // [Ohm]
     constexpr float GAIN = 20.0f; // [V/V]
 }
+
+void init_pins();
+bool button_is_pressed(int button_pin);
+void set_led_color(LED_COLOR color);

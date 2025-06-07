@@ -1,10 +1,15 @@
 #include "SimpleFOC_setup.h"
 
+#include <SimpleFOC.h>
+#include <SimpleFOCDrivers.h>
+#include "encoders/tle5012b/MagneticSensorTLE5012B.h"
+#include "SimpleFOC_extended/LowsideCurrentSenseExtended.h"
+#include "SimpleFOC_extended/StepperDriver4PWMExtended.h"
+#include "SimpleFOC_extended/MagneticEncoderTLE5012B.h"
+#include "SimpleFOC_extended/CalibratedSensorExtended.h"
 #include "config.h"
 #include "bsp/cln17_v2.h"
 #include "motor_calibration.h"
-
-#define POWER_SUPPLY_VOLTAGE 12.0f
 
 MagneticEncoderTLE5012B encoder(PINOUT::ENC_MOSI, PINOUT::ENC_MISO, PINOUT::ENC_SCLK, PINOUT::ENC_CSEL);
 CalibratedSensorExtended encoder_calibrated = CalibratedSensorExtended(encoder, ENCODER_CALIBRATION_LUT_SIZE);
@@ -14,20 +19,8 @@ StepperDriver4PWMExtended driver = StepperDriver4PWMExtended(PINOUT::DRV_A1, PIN
 
 MotorCalibration motor_calibration;
 
-void SimpleFOCInit(bool calibration_needed)
+void initMotorParameters()
 {
-    Serial.println("Starting SimpleFOC");
-
-    if (!calibration_needed) {
-        Serial.println("Reading the calibration data from EEPROM");
-
-        if (!motor_calibration.load_from_eeprom()) {
-            Serial.println("Failed to read the calibration data from EEPROM");
-            Serial.println("Calibration will be performed");
-            calibration_needed = true;
-        }
-    }
-
     motor.torque_controller = TorqueControlType::foc_current;
     motor.controller = MotionControlType::angle;
     // motor.controller = MotionControlType::velocity_openloop;
@@ -56,6 +49,25 @@ void SimpleFOCInit(bool calibration_needed)
     // position
     motor.P_angle.P = 10.0f;
     motor.P_angle.D = 0.01f;
+}
+
+void initSimpleFOC()
+{
+    Serial.println("Starting SimpleFOC");
+
+    bool calibration_needed = button_is_pressed(PINOUT::SYS_SW1);
+
+    if (!calibration_needed) {
+        Serial.println("Reading the calibration data from EEPROM");
+
+        if (!motor_calibration.load_from_eeprom()) {
+            Serial.println("Failed to read the calibration data from EEPROM");
+            Serial.println("Calibration will be performed");
+            calibration_needed = true;
+        }
+    }
+
+    initMotorParameters();
 
     extern uint8_t tim_downsample[5];
     for (int i = 0; i < 5; ++i) {
@@ -68,11 +80,9 @@ void SimpleFOCInit(bool calibration_needed)
 
     SimpleFOCDebug::enable(&Serial);
 
-    pinMode(PINOUT::DRV_RST, OUTPUT);
     digitalWrite(PINOUT::DRV_RST, LOW);
     delay(100);
     digitalWrite(PINOUT::DRV_RST, HIGH);
-    pinMode(PINOUT::DRV_ERR, INPUT_PULLUP);
 
     encoder.init();
     motor.linkSensor(&encoder);
@@ -91,6 +101,7 @@ void SimpleFOCInit(bool calibration_needed)
     motor.init();
 
     if (calibration_needed) {
+        set_led_color(LED_COLOR::BLUE);
         encoder_calibrated.voltage_calibration = MOTOR_SENSOR_ALIGN_VOLTAGE;
         encoder_calibrated.calibrate(motor);
         memcpy(motor_calibration.encoder_calibration_lut, encoder_calibrated.getCalibrationLut(), ENCODER_CALIBRATION_LUT_SIZE * sizeof(float));
@@ -113,6 +124,9 @@ void SimpleFOCInit(bool calibration_needed)
     Serial.println(current_sensor.offset_ia);
     Serial.print("Current sensor B offset: ");
     Serial.println(current_sensor.offset_ib);
+
+    Serial.println("Ready");
+    set_led_color(LED_COLOR::GREEN);
 }
 
 void loopFOC()
