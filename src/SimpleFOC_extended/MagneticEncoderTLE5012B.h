@@ -11,6 +11,12 @@ public:
     virtual void init() override;
     virtual float getSensorAngle() override;
     void requestAngle();
+    void setBlockingOperation(bool blocking);
+private:
+    // Encoder can work in two modes, blocking and non-blocking. Non-blocking one uses
+    // less MCU time, as it is interrupt-based, but introduces a slight angle time lag
+    // Default mode is blocking
+    bool blocking = true;
 };
 
 #endif // MAGNETIC_ENCODER_TLE5012B_H

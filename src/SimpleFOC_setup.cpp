@@ -145,6 +145,8 @@ void initSimpleFOC()
 
     motor.initFOC();
 
+    encoder.setBlockingOperation(false);
+
     Serial.print("Current sensor A offset: ");
     Serial.println(current_sensor.offset_ia);
     Serial.print("Current sensor B offset: ");

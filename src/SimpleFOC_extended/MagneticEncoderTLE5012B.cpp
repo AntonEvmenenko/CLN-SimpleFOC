@@ -26,13 +26,26 @@ void MagneticEncoderTLE5012B::init() {
 };
 
 float MagneticEncoderTLE5012B::getSensorAngle() {
-    uint16_t respond = SPI1_rx_buffer[1] & 0x7FFF;
-    requestAngle();
+    uint16_t respond = 0;
+
+    if (blocking) {
+        requestAngle();
+        while (SPI1_busy){};
+        respond = SPI1_rx_buffer[1] & 0x7FFF;    
+    } else {
+        respond = SPI1_rx_buffer[1] & 0x7FFF;
+        requestAngle();
+    }
+
     return respond * _2PI / TLE5012B_CPR; // Convert to radians
 };
 
 void MagneticEncoderTLE5012B::requestAngle() {
     SPI1_StartTransfer();
+}
+
+void MagneticEncoderTLE5012B::setBlockingOperation(bool blocking) {
+    this->blocking = blocking;
 }
 
 void SPI1_Init() {
