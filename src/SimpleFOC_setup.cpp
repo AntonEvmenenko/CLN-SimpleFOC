@@ -52,24 +52,25 @@ void initMotorParameters()
     // motor.controller = MotionControlType::velocity_openloop;
 
     // current
-    motor.PID_current_q.P = 3;
-    motor.PID_current_q.I = 100;
-    motor.PID_current_d.P = 3;
-    motor.PID_current_d.I = 100;
-    motor.LPF_current_q.Tf = 0.01;
-    motor.LPF_current_d.Tf = 0.01;
-    motor.current_limit = 1.5f;
+    motor.PID_current_q.P =     3.0f;
+    motor.PID_current_q.I =     100.0f;
+    motor.PID_current_d.P =     60.0f;
+    motor.PID_current_d.I =     100.0f;
+    motor.LPF_current_q.Tf =    0.01f;
+    motor.LPF_current_d.Tf =    0.01f;
+
+    motor.current_limit =       1.5f;
 
     // velocity
-    motor.PID_velocity.P = 0.5;
-    motor.PID_velocity.I = 10;
-    motor.PID_velocity.D = 0.0f;
-    motor.LPF_velocity.Tf = 0.05;
-    motor.velocity_limit = 20;
+    motor.PID_velocity.P =      0.5f;
+    motor.PID_velocity.I =      10.0f;
+    motor.PID_velocity.D =      0.0f;
+    motor.LPF_velocity.Tf =     0.05f;
+    motor.velocity_limit =      20.0f;
 
     // position
-    motor.P_angle.P = 10.0f;
-    motor.P_angle.D = 0.01f;
+    motor.P_angle.P =           10.0f;
+    motor.P_angle.D =           0.01f;
 }
 
 void initSimpleFOC()
