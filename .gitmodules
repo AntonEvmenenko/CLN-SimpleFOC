@@ -1,0 +1,3 @@
+[submodule "lib/CanOpenSTM32-wrapper/CanOpenSTM32"]
+	path = lib/CanOpenSTM32-wrapper/CanOpenSTM32
+	url = git@github.com:CANopenNode/CanOpenSTM32.git

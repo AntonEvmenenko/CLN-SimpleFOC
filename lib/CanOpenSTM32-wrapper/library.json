@@ -1,0 +1,19 @@
+{
+  "name": "CanOpenSTM32-wrapper",
+  "version": "0.1.0",
+  "build": {
+    "includeDir": ".",
+    "flags": [
+      "-I CanOpenSTM32",
+      "-I CanOpenSTM32/CANopenNode",
+      "-I CanOpenSTM32/CANopenNode_STM32",
+      "-I src"
+    ],
+    "srcDir": ".",
+    "srcFilter": [
+      "+<CanOpenSTM32/CANopenNode/*>",
+      "-<CanOpenSTM32/CANopenNode/example/*>",
+      "+<CanOpenSTM32/CANopenNode_STM32/*>"
+    ]
+  }
+}
