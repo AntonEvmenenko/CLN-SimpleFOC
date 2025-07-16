@@ -15,8 +15,7 @@
 // extern StepperMotor motor;
 // extern StepperDriver4PWMExtended driver;
 
-void initMotorParameters();
-void initSimpleFOC();
+void SimpleFOC_init();
 void loopFOC();
 
 #endif // SIMPLEFOC_SETUP_H

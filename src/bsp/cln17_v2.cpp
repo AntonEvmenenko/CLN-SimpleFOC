@@ -1,15 +1,5 @@
 #include "cln17_v2.h"
 
-void init_pins() {
-    pinMode(PINOUT::DEBUG_PIN, OUTPUT);
-    pinMode(PINOUT::SYS_SW1, INPUT_PULLUP);
-    pinMode(PINOUT::LED_RED, OUTPUT);
-    pinMode(PINOUT::LED_GRN, OUTPUT);
-    pinMode(PINOUT::LED_BLU, OUTPUT);
-    pinMode(PINOUT::DRV_RST, OUTPUT);
-    pinMode(PINOUT::DRV_ERR, INPUT_PULLUP);
-}
-
 bool button_is_pressed(int button_pin) {
     return digitalRead(button_pin) == LOW;
 }

@@ -21,4 +21,10 @@
 
 #define ENCODER_CALIBRATION_LUT_SIZE 200
 
+// CANopen
+
+#define CANOPEN_TIMER_FREQUENCY 1000 // [Hz]
+#define CANOPEN_NODE_ID         21
+#define CANOPEN_BAUDRATE        125 // [kbit/s]
+
 #endif // CONFIG_H

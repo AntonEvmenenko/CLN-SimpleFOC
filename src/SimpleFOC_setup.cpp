@@ -44,6 +44,7 @@ StepperDriver4PWMExtended driver = StepperDriver4PWMExtended(
 MotorCalibration motor_calibration;
 float supply_voltage = POWER_SUPPLY_VOLTAGE;
 
+void initMotorParameters();
 void initMotorParameters()
 {
     // control mode
@@ -73,7 +74,7 @@ void initMotorParameters()
     motor.P_angle.D =           0.01f;
 }
 
-void initSimpleFOC()
+void SimpleFOC_init()
 {
     Serial.println("Starting SimpleFOC");
 

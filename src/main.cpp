@@ -1,41 +1,47 @@
 #include <Arduino.h>
 #include "bsp/cln17_v2.h"
+#include "bsp/gpio.h"
+#include "bsp/fdcan.h"
 #include "SimpleFOC_setup.h"
 #include "config.h"
 #include "CO_app_STM32.h"
+#include "CANopen_setup.h"
 
 HardwareTimer foc_timer = HardwareTimer(TIM8);
+HardwareTimer canopen_timer = HardwareTimer(TIM17);
 
 void foc_timer_interrupt() {
-    // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_SET);
+    // set_debug_pin();
     loopFOC();
-    // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_10, GPIO_PIN_RESET);
+    // reset_debug_pin();
+}
+
+void canopen_interrupt() {
+    canopen_app_interrupt();
 }
 
 void setup() {
-    init_pins();
-    Serial.begin(115200);
-    // delay(5000);
-    initSimpleFOC();
+    GPIO_init();
+    FDCAN1_init();
 
     foc_timer.setOverflow(FOC_LOOP_FREQUENCY, HERTZ_FORMAT);
     foc_timer.attachInterrupt(foc_timer_interrupt);
-    foc_timer.resume();
 
-    // CANopenNodeSTM32 canOpenNodeSTM32;
-    // canOpenNodeSTM32.CANHandle = nullptr;
-    // canOpenNodeSTM32.HWInitFunction = nullptr;
-    // canOpenNodeSTM32.timerHandle = nullptr;
-    // canOpenNodeSTM32.desiredNodeID = 29;
-    // canOpenNodeSTM32.baudrate = 125;
-    // canopen_app_init(&canOpenNodeSTM32);
+    canopen_timer.setOverflow(CANOPEN_TIMER_FREQUENCY, HERTZ_FORMAT);
+    canopen_timer.attachInterrupt(canopen_interrupt);
+
+    CANopen_init(&hfdcan1, FDCAN1_init, canopen_timer.getHandle(), CANOPEN_NODE_ID, CANOPEN_BAUDRATE);
+
+    Serial.begin(115200);
+    // delay(5000);
+    SimpleFOC_init();
+
+    foc_timer.resume();
 }
 
 void loop() {
     // loopFOC();
     // current_sensor.getPhaseCurrents();
     // HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
-
-    // canopen_app_interrupt();
-    // canopen_app_process();
+    canopen_app_process();
 }

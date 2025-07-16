@@ -69,6 +69,17 @@ namespace VOLTAGE_SENSING {
     constexpr float VM_SENSE_SCALE = 21.0f;
 }
 
-void init_pins();
 bool button_is_pressed(int button_pin);
 void set_led_color(LED_COLOR color);
+
+static inline void set_debug_pin() {
+    digitalWrite(PINOUT::DEBUG_PIN, HIGH);
+}
+
+static inline void reset_debug_pin() {
+    digitalWrite(PINOUT::DEBUG_PIN, LOW);
+}
+
+static inline void toggle_debug_pin() {
+    digitalToggle(PINOUT::DEBUG_PIN);
+}

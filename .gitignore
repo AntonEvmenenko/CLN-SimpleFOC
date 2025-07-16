@@ -9,3 +9,6 @@ build/
 .vscode/ipch
 
 private/
+
+cubemx/*
+!cubemx/*.ioc
