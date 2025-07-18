@@ -1,14 +1,10 @@
-#ifndef SYSTEM_CLOCK_H
-#define SYSTEM_CLOCK_H
-
 #include <Arduino.h>
-#include "stm32g4xx_hal.h"
 
-// The default SystemClock_Config() implementation for the "genericSTM32G431CB"
-// board can be found here:
+// The default SystemClock_Config() implementation for the "genericSTM32G431CB" board can be found here:
 // https://github.com/stm32duino/Arduino_Core_STM32/blob/main/variants/STM32G4xx/G431C(6-8-B)U_G441CBU/generic_clock.c
 
-extern "C" void SystemClock_Config(void) {
+extern "C" void SystemClock_Config(void)
+{
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
@@ -44,6 +40,13 @@ extern "C" void SystemClock_Config(void) {
     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
         Error_Handler();
     }
-}
 
-#endif  // SYSTEM_CLOCK_H
+    #ifdef USBCON
+        RCC_PeriphCLKInitTypeDef PeriphClkInit = {};
+        PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB;
+        PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+        if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+            Error_Handler();
+        }
+    #endif
+}

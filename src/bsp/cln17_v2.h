@@ -52,8 +52,8 @@ namespace PINOUT {
     // // CAN-Bus interface
     // constexpr PinName CAN_RX = PB_8;   // Recieve line
     // constexpr PinName CAN_TX = PB_9;   // Trancieve line
-    // constexpr PinName CAN_SD = PA_9;   // Shutdown pin (ACTIVE LOW)
-    // constexpr PinName CAN_IO = PA_10;  // HIGH for (VIO or EN) or HIGH-Z for (VREF)
+    constexpr int CAN_SD = PA9;   // Shutdown pin (ACTIVE LOW)
+    constexpr int CAN_IO = PA10;  // HIGH for (VIO or EN) or HIGH-Z for (VREF)
 
     // // USB interface
     // constexpr PinName USB_USB_DP = PA_12;

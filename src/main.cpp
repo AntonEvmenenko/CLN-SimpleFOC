@@ -17,18 +17,25 @@ void foc_timer_interrupt() {
 }
 
 void canopen_interrupt() {
+    // set_debug_pin();
     canopen_app_interrupt();
+    // reset_debug_pin();
 }
 
 void setup() {
     GPIO_init();
     FDCAN1_init();
 
+    digitalWrite(PINOUT::CAN_SD, LOW);
+    digitalWrite(PINOUT::CAN_IO, HIGH);
+
     foc_timer.setOverflow(FOC_LOOP_FREQUENCY, HERTZ_FORMAT);
     foc_timer.attachInterrupt(foc_timer_interrupt);
+    foc_timer.setInterruptPriority(0, 0);
 
     canopen_timer.setOverflow(CANOPEN_TIMER_FREQUENCY, HERTZ_FORMAT);
     canopen_timer.attachInterrupt(canopen_interrupt);
+    canopen_timer.setInterruptPriority(1, 0);
 
     CANopen_init(&hfdcan1, FDCAN1_init, canopen_timer.getHandle(), CANOPEN_NODE_ID, CANOPEN_BAUDRATE);
 
@@ -43,5 +50,7 @@ void loop() {
     // loopFOC();
     // current_sensor.getPhaseCurrents();
     // HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
+    // set_debug_pin();
     canopen_app_process();
+    // reset_debug_pin();
 }

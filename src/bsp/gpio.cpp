@@ -11,4 +11,6 @@ void GPIO_init() {
     pinMode(PINOUT::LED_BLU, OUTPUT);
     pinMode(PINOUT::DRV_RST, OUTPUT);
     pinMode(PINOUT::DRV_ERR, INPUT_PULLUP);
+    pinMode(PINOUT::CAN_IO, OUTPUT);
+    pinMode(PINOUT::CAN_SD, OUTPUT);
 }
