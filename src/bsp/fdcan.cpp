@@ -4,6 +4,7 @@
 #include "stm32g4xx_hal_gpio.h"
 #include "stm32g4xx_hal_rcc.h"
 #include "stm32g4xx_hal_cortex.h"
+#include "bsp/cln17_v2.h"
 
 FDCAN_HandleTypeDef hfdcan1;
 
@@ -30,6 +31,10 @@ void FDCAN1_init(void)
     if (HAL_FDCAN_Init(&hfdcan1) != HAL_OK) {
         Error_Handler();
     }
+
+    // Init CAN bus transceiver
+    digitalWrite(PINOUT::CAN_SD, LOW);
+    digitalWrite(PINOUT::CAN_IO, HIGH);
 }
 
 extern "C" void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef *hfdcan)
