@@ -1,3 +1,4 @@
+#ifndef TARGET_CLN17_V2
 #define TARGET_CLN17_V2
 
 #include <Arduino.h>
@@ -83,3 +84,5 @@ static inline void reset_debug_pin() {
 static inline void toggle_debug_pin() {
     digitalToggle(PINOUT::DEBUG_PIN);
 }
+
+#endif // TARGET_CLN17_V2

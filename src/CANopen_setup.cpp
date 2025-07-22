@@ -2,7 +2,14 @@
 
 CANopenNodeSTM32 canOpenNodeSTM32;
 
-void CANopen_init(FDCAN_HandleTypeDef* can_handle, void (*hw_init_function)(), TIM_HandleTypeDef* timer_handle, uint8_t desired_node_it, uint16_t can_baudrate)
+void CANopen_init(
+    FDCAN_HandleTypeDef* can_handle, 
+    void (*hw_init_function)(), 
+    TIM_HandleTypeDef* timer_handle, 
+    uint8_t desired_node_it, 
+    uint16_t can_baudrate, 
+    void (*sync_callback)(void *object)
+)
 {
     canOpenNodeSTM32.CANHandle = can_handle;
     canOpenNodeSTM32.HWInitFunction = hw_init_function;
@@ -10,4 +17,8 @@ void CANopen_init(FDCAN_HandleTypeDef* can_handle, void (*hw_init_function)(), T
     canOpenNodeSTM32.desiredNodeID = desired_node_it;
     canOpenNodeSTM32.baudrate = can_baudrate; // kbit/s
     canopen_app_init(&canOpenNodeSTM32);
+    
+    if (sync_callback) {
+        CO_SYNC_initCallbackPre(canOpenNodeSTM32.canOpenStack->SYNC, nullptr, sync_callback);
+    }
 }

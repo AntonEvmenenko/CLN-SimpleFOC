@@ -1,7 +1,7 @@
 #ifndef SIMPLEFOC_SETUP_H
 #define SIMPLEFOC_SETUP_H
 
-// #include <SimpleFOC.h>
+#include <SimpleFOC.h>
 // #include <SimpleFOCDrivers.h>
 // #include "SimpleFOC_extended/MagneticEncoderTLE5012B.h"
 // #include "SimpleFOC_extended/LowsideCurrentSenseExtended.h"
@@ -12,7 +12,7 @@
 // extern MagneticEncoderTLE5012B encoder;
 // extern CalibratedSensorExtended encoder_calibrated;
 // extern LowsideCurrentSenseExtended current_sensor;
-// extern StepperMotor motor;
+extern StepperMotor motor;
 // extern StepperDriver4PWMExtended driver;
 
 void SimpleFOC_init();

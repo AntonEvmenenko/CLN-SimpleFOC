@@ -6,6 +6,7 @@
 #include "config.h"
 #include "CO_app_STM32.h"
 #include "CANopen_setup.h"
+#include "OD.h"
 
 HardwareTimer foc_timer = HardwareTimer(TIM8);
 HardwareTimer canopen_timer = HardwareTimer(TIM17);
@@ -32,6 +33,12 @@ void timers_init() {
     canopen_timer.setInterruptPriority(1, 0);
 }
 
+void sync_callback(void* object) {
+    // toggle_debug_pin();
+    OD_RAM.x6064_positionActualValue = motor.shaft_angle;
+    motor.target = OD_RAM.x607A_targetPosition;
+}
+
 void setup() {
     Serial.begin(115200);
     // delay(5000);
@@ -40,7 +47,7 @@ void setup() {
     FDCAN1_init();
     timers_init();
 
-    CANopen_init(&hfdcan1, FDCAN1_init, canopen_timer.getHandle(), CANOPEN_NODE_ID, CANOPEN_BAUDRATE);
+    CANopen_init(&hfdcan1, FDCAN1_init, canopen_timer.getHandle(), CANOPEN_NODE_ID, CANOPEN_BAUDRATE, sync_callback);
     SimpleFOC_init();
 
     foc_timer.resume();

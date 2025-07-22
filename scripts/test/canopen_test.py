@@ -1,18 +1,21 @@
 import canopen
 import time
 import logging
+import os
+
+os.system('sudo ip link set can0 up type can bitrate 125000')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 network = canopen.Network()
-# network.connect(interface='socketcan', channel='can0', bitrate=125000)
-network.connect(interface='gs_usb', channel=0, bitrate=125000)
+network.connect(interface='socketcan', channel='can0', bitrate=125000)
 
-node = canopen.RemoteNode(21, None)
+node = canopen.RemoteNode(21, './DS301_profile.eds')
 network.add_node(node)
 
 # node.sdo['Producer heartbeat time'].raw = 1000
+# node.sdo['Target position'].raw = -1.0
 
 print(f"Initial NMT state: {node.nmt.state}")
 
@@ -28,9 +31,34 @@ def on_heartbeat(state: int):
 
 node.nmt.add_heartbeat_callback(on_heartbeat)
 
+network.sync.start(0.01)
+# node.tpdo.read()
+# node.rpdo.read()
+
+# node.tpdo[1].clear()
+# node.tpdo[1].add_variable('Target position')
+# node.tpdo[1].trans_type = 254
+# node.tpdo[1].event_timer = 10
+# node.tpdo[1].enabled = True
+# node.tpdo[1].save()
+
+# node.rpdo[1].transmit()
+
+node.rpdo.read()
+
+# print(f'{node.tpdo=}')
+# print(f'{node.rpdo=}')
+
+angle = 0.0
+
 try:
     while True:
-        time.sleep(2)
+        # node.sdo['Target position'].raw = angle
+        angle += 0.01
+        node.rpdo[1]['Target position'].raw = angle
+        node.rpdo[1].transmit()
+        time.sleep(0.01)
+        # time.sleep(2)
 
 except KeyboardInterrupt:
     print("\nAborted by user")
@@ -39,6 +67,6 @@ except Exception as e:
 finally:
     print("Disconnecting from CAN bus...")
     if network.bus:
+        network.sync.stop()
         network.disconnect()
     print("Disconnected")
-
