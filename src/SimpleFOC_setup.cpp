@@ -54,7 +54,7 @@ void initMotorParameters()
     // current
     motor.PID_current_q.P =     3.0f;
     motor.PID_current_q.I =     100.0f;
-    motor.PID_current_d.P =     60.0f;
+    motor.PID_current_d.P =     3.0f;
     motor.PID_current_d.I =     100.0f;
     motor.LPF_current_q.Tf =    0.01f;
     motor.LPF_current_d.Tf =    0.01f;
