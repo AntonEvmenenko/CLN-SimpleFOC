@@ -18,5 +18,6 @@
 void initMotorParameters();
 void initSimpleFOC();
 void loopFOC();
+void runCommander();
 
 #endif // SIMPLEFOC_SETUP_H

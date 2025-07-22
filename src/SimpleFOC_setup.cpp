@@ -41,8 +41,11 @@ StepperDriver4PWMExtended driver = StepperDriver4PWMExtended(
     PINOUT::DRV_B2, 
     PINOUT::DRV_EN
 );
+Commander commander = Commander(Serial);
 MotorCalibration motor_calibration;
 float supply_voltage = POWER_SUPPLY_VOLTAGE;
+
+void onMotor(char* cmd){ commander.motor(&motor,cmd); }
 
 void initMotorParameters()
 {
@@ -153,6 +156,8 @@ void initSimpleFOC()
     Serial.print("Current sensor B offset: ");
     Serial.println(current_sensor.offset_ib);
 
+    commander.add('M', onMotor, "full motor config");
+
     Serial.println("Ready");
     set_led_color(LED_COLOR::GREEN);
 }
@@ -168,4 +173,9 @@ void loopFOC()
 
     motor.loopFOC();
     motor.move();
+}
+
+void runCommander()
+{
+    commander.run();
 }

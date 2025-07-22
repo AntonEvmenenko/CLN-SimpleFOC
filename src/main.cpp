@@ -23,6 +23,7 @@ void setup() {
 }
 
 void loop() {
+    runCommander();
     // loopFOC();
     // current_sensor.getPhaseCurrents();
     // HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
