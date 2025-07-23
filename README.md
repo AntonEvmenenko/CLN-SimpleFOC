@@ -2,7 +2,7 @@
 
 This repository contains the firmware for the [CLN closed-loop stepper motor drivers](https://github.com/creapunk/CLN-ClosedLoopNemaDriver). This firmware is based on [SimpleFOC](https://github.com/simplefoc/Arduino-FOC). Currently, only the **CLN V2.0** hardware is supported
 
-## Safety information
+## Safety warning
 
 Please be attentive when interacting with the CLN. It is a good idea to occasionally check the temperature of the DRV8844 (even with your finger) to make sure it is not overheating. In addition, for the first tests, it is a very good idea to use a laboratory power supply that can limit the current. 1 Ampere should be quite enough to start with. If tested irresponsibly, **WHITE SMOKE MAY ESCAPE** 🤣 
 
@@ -35,3 +35,9 @@ M3.14
 ## Information for developers
 
 1. The latest SimpleFOC code is not compatible with CLN. I am currently trying to make the necessary changes to SimpleFOC to fix this, the discussion is [here](https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235), the draft PR is [here](https://github.com/simplefoc/Arduino-FOC/pull/472)
+
+## Disclaimer
+
+**⚠️ USE AT YOUR OWN RISK ⚠️**
+
+THIS PROJECT IS PROVIDED AS IS, WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES. USE IT AT YOUR OWN RISK. THE AUTHORS AND CONTRIBUTORS ARE NOT RESPONSIBLE FOR ANY DAMAGE TO EQUIPMENT, INJURY, OR OTHER ISSUES THAT MAY RESULT FROM THE USE, MISUSE, OR MALFUNCTION OF THE HARDWARE, FIRMWARE OR SOFTWARE. MAKE SURE TO UNDERSTAND THE FUNCTIONALITY OF THE CLN DRIVER AND FOLLOW ALL SAFETY INSTRUCTIONS WHEN TESTING OR DEPLOYING THIS FIRMWARE
