@@ -28,6 +28,10 @@ M3.14
 1. The firmware prints logs via Serial during startup. If something is wrong, check the logs first
 1. I recommend doing any debugging and interaction with the servo via the [MCUViewer V1.1.0](https://github.com/klonyyy/MCUViewer/releases/tag/v1.0.1). You can find the corresponding configuration file in the project's root. A bunch of variables have already been added there. You can also easily tweak any PID/LPF/etc coefficients via the MCUViewer
 
+## Limitations
+
+1. At the moment, the servo motor can only be controlled via Serial commands, as described above. If you're interested in having additional interfaces/protocols for control, feel free to open an issue; I or someone from the community may be able to implement it
+
 ## Information for developers
 
 1. The latest SimpleFOC code is not compatible with CLN. I am currently trying to make the necessary changes to SimpleFOC to fix this, the discussion is [here](https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235), the draft PR is [here](https://github.com/simplefoc/Arduino-FOC/pull/472)
