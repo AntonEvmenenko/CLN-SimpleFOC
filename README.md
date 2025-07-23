@@ -29,4 +29,4 @@ M3.14
 
 ## Information for developers
 
-1. The latest SimpleFOC code is not compatible with CLN. I am currently trying to make the necessary changes to SimpleFOC to fix this, details are [here](https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235)
+1. The latest SimpleFOC code is not compatible with CLN. I am currently trying to make the necessary changes to SimpleFOC to fix this, the discussion is [here](https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235), the draft PR is [here](https://github.com/simplefoc/Arduino-FOC/pull/472)
