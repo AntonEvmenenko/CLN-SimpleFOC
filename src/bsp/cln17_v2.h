@@ -61,7 +61,7 @@ namespace PINOUT {
 }
 
 namespace CURRENT_SENSING {
-    constexpr float SHUNT_RESISTANCE  = 0.025f; // [Ohm]
+    constexpr float SHUNT_RESISTANCE  = 0.05f; // [Ohm]
     constexpr float GAIN = 20.0f; // [V/V]
 }
 
