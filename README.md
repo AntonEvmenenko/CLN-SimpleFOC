@@ -12,7 +12,7 @@ Please be attentive when interacting with the CLN. It is a good idea to occasion
 1. Download the project and open it in [PlatformIO](https://platformio.org/)
 1. Open the [src/config.h](https://github.com/AntonEvmenenko/CLN-SimpleFOC/blob/main/src/config.h) and **make sure that `POWER_SUPPLY_VOLTAGE` corresponds to your power supply voltage**. Also, **make sure that all the motor parameters listed in the `Motor` section correspond to your motor**
 1. Use PlatformIO to build and upload the project
-1. On first power-up, the motor performs a self-calibration and stores the parameters in the MCU’s “EEPROM” (actually the last page of FLASH). On subsequent startups, calibration is skipped. To force calibration, hold down SW1 while powering on the CLN. The shaft must be free to rotate during calibration
+1. On first power-up, the motor performs a self-calibration and stores the parameters in the MCU’s “EEPROM” (actually the last page of FLASH). On subsequent startups, calibration is skipped. To force calibration, hold down SW1 while powering on the CLN. **The motor shaft must be free to rotate during calibration**
 1. By default the motor works in position control mode. You could easily change that by changing the first lines of the `initMotorParameters()` function
 1. You can control the motor by sending the commands via the Serial interface, which by default works via the MCU's USB. See [here](https://docs.simplefoc.com/commander_motor) for a list of the available commands. For example, you can use the following command to change the position (shaft's angle) setpoint to PI radians:
 
