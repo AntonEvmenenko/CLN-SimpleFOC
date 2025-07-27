@@ -1,6 +1,6 @@
 # CLN-SimpleFOC
 
-This repository contains the firmware for the [CLN closed-loop stepper motor drivers](https://github.com/creapunk/CLN-ClosedLoopNemaDriver). This firmware is based on [SimpleFOC](https://github.com/simplefoc/Arduino-FOC). Currently, only the **CLN V2.0** hardware is supported
+This repository contains the firmware for the [CLN closed-loop stepper motor drivers](https://github.com/creapunk/CLN-ClosedLoopNemaDriver). This firmware is based on [SimpleFOC](https://github.com/simplefoc/Arduino-FOC). Currently, only the **CLN17 V2.0** hardware is supported
 
 ## Safety warning
 
@@ -8,7 +8,7 @@ Please be attentive when interacting with the CLN. It is a good idea to occasion
 
 ## How to use
 
-1. You need the CLN V2.0 driver mounted on a motor. Ideally, you should connect it to your computer via the [SWD over USB Type-C](https://hackaday.io/project/192857-swd-over-usb-type-c-new-way-of-programming-boards) adapter. If you don't have it, you can probably use the standard ST-Link V2 to do the job too, but it's a little more complicated
+1. You need the CLN17 V2.0 driver mounted on a motor. Ideally, you should connect it to your computer via the [SWD over USB Type-C](https://hackaday.io/project/192857-swd-over-usb-type-c-new-way-of-programming-boards) adapter. If you don't have it, you can probably use the standard ST-Link V2 to do the job too, but it's a little more complicated
 1. Download the project and open it in [PlatformIO](https://platformio.org/)
 1. Open the [src/config.h](https://github.com/AntonEvmenenko/CLN-SimpleFOC/blob/main/src/config.h) and **make sure that `POWER_SUPPLY_VOLTAGE` corresponds to your power supply voltage**. Also, **make sure that all the motor parameters listed in the `Motor` section correspond to your motor**
 1. Use PlatformIO to build and upload the project
@@ -34,7 +34,7 @@ M3.14
 
 ## Information for developers
 
-1. The latest SimpleFOC code is not compatible with CLN. I am currently trying to make the necessary changes to SimpleFOC to fix this, the discussion is [here](https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235), the draft PR is [here](https://github.com/simplefoc/Arduino-FOC/pull/472)
+1. The latest SimpleFOC code is not compatible with CLN17 V2.0. I am currently trying to make the necessary changes to SimpleFOC to fix this, the discussion is [here](https://community.simplefoc.com/t/low-side-current-sensing-for-stepper-motors/7235), the draft PR is [here](https://github.com/simplefoc/Arduino-FOC/pull/472)
 
 ## Disclaimer
 
