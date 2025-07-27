@@ -4,7 +4,7 @@ This repository contains the firmware for the [CLN closed-loop stepper motor dri
 
 ## Safety warning
 
-Please be attentive when interacting with the CLN. It is a good idea to occasionally check the temperature of the DRV8844 (even with your finger) to make sure it is not overheating. In addition, for the first tests, it is a very good idea to use a laboratory power supply that can limit the current. 1 Ampere should be quite enough to start with. If tested irresponsibly, **WHITE SMOKE MAY ESCAPE** 🤣 
+Please be attentive when interacting with the CLN. It is a good idea to occasionally check the temperature of the DRV8844 (even with your finger) to make sure it is not overheating. In addition, for the first tests, it is a very good idea to use a laboratory power supply that can limit the current. 1 Ampere should be quite enough to start with. If tested irresponsibly, [**MAGIC SMOKE MAY ESCAPE**](https://en.wikipedia.org/wiki/Magic_smoke) 🤣 
 
 ## How to use
 
