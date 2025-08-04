@@ -4,7 +4,11 @@ This branch is a WIP and is not intended for use by anyone other than the author
 
 If you're interested in the SimpleFOC-based firmware for the CLN closed-loop stepper motor drivers, please check out the [main branch](https://github.com/AntonEvmenenko/CLN-SimpleFOC), which is more stable and more ready to use.
 
-If you are absolutely sure that you need to use this branch and you know what you are doing, first read the rest of the README below.
+If you are absolutely sure that you need to use this branch and you know what you are doing, first read the rest of the README below. Also, after you clone the repository, make sure to download all the submodules using this command:
+
+```
+git submodule update --init --recursive
+```
 
 # CLN-SimpleFOC
 
